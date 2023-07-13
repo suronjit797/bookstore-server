@@ -1,7 +1,7 @@
 import express from "express";
-import globalValidator from "../../middleware/globalValidation";
 import {userLoginValidatorZod, userRegisterValidatorZod} from "./users.validator";
 import usersController from "./users.controllers";
+import globalValidator from "../../middleware/globalValidation";
 
 const usersRoute = express.Router();
 

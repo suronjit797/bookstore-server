@@ -7,7 +7,6 @@ export const userRegisterValidatorZod = z.object({
       email: z.string().email(),
       password: z.string(),
     })
-    .strict(),
 })
 export const userLoginValidatorZod = z.object({
   body: z.object({
