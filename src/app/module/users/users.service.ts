@@ -24,11 +24,11 @@ const signUpService = async (payload: IUser): Promise<IResponsePayload<IUser>> =
 }
 const loginService = async (payload: IUser) => {
   // existence of user
-  const isExist = await UserModel.findOne({ email: payload.email })
+  const isExist = await UserModel.isExist(payload.email)
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found')
   }
-  const { _id, password, email } = isExist
+  const { _id, password, email, name } = isExist
 
   // if no password
   if (!password) throw new ApiError(httpStatus.FORBIDDEN, 'Server error occurred')
@@ -38,10 +38,10 @@ const loginService = async (payload: IUser) => {
   const isVerified = await UserModel.isPasswordMatched(payload.password, password)
   if (!isVerified) throw new ApiError(httpStatus.FORBIDDEN, 'Password dose not matched')
 
-  const accessToken = jwt.sign({ _id }, config.token.refresh_token_secret, {
+  const accessToken = jwt.sign({ _id, email, name }, config.token.access_token_secret, {
     expiresIn: config.token.access_token_time,
   })
-  const refreshToken = jwt.sign({ _id, email }, config.token.refresh_token_secret, {
+  const refreshToken = jwt.sign({ _id, email, name }, config.token.refresh_token_secret, {
     expiresIn: config.token.refresh_token_time,
   })
 

@@ -7,12 +7,12 @@ export type IUser = {
 }
 
 export interface IUserPic extends IUser {
-  _id: string
+  _id: string,
 }
 
 export interface IUserModel extends Model<IUser> {
   // eslint-disable-next-line no-unused-vars
-  isExist(phoneNumber: string): Promise<Pick<IUserPic, '_id' | 'email' | 'password'> | null>
+  isExist(email: string): Promise<Pick<IUserPic, '_id' | 'email' | 'password' | 'name'> | null>
   // eslint-disable-next-line no-unused-vars
   isPasswordMatched(currentPass: string, password: string): Promise<boolean>
 }

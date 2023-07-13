@@ -37,3 +37,11 @@ export type IPagination = {
 export type IFilter = { [key: string]: object }
 
 export type IPartialSearchableFields = string[]
+
+export interface CustomJwtPayload {
+  _id?: string
+  role?: string
+  phoneNumber?: string
+  iat?: string
+  exp?: string
+}

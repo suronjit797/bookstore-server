@@ -32,8 +32,8 @@ const userSchema = new Schema<IUser>(
 )
 
 // statics
-userSchema.statics.isExist = async function (phoneNumber: string) {
-  return await UserModel.findOne({ phoneNumber }, { phoneNumber: 1, password: 1, role: 1 })
+userSchema.statics.isExist = async function (email: string) {
+  return await UserModel.findOne({ email }, { email: 1, password: 1, name: 1 })
 }
 userSchema.statics.isPasswordMatched = async function (currentPass: string, savedPassword: string) {
   return await bcrypt.compare(currentPass, savedPassword)
