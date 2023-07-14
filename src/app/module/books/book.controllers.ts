@@ -90,30 +90,30 @@ const updateBookController: RequestHandler = async (req, res, next) => {
   }
 }
 
-// const removeCowController: RequestHandler = async (req, res, next) => {
-//   try {
-//     const { cowId } = req.params
-//     const data = await bookService.removeBookservice(cowId)
+const removeBookController: RequestHandler = async (req, res, next) => {
+  try {
+    const { bookId } = req.params
+    const data = await bookService.removeBookService(bookId)
 
-//     const payload: IResponsePayload<ICow> = {
-//       statusCode: data.statusCode,
-//       success: data.success,
-//       message: data.message,
-//       data: data.data,
-//     }
-//     // send response
-//     return res.status(payload.statusCode).send(payload)
-//   } catch (error) {
-//     return next(error)
-//   }
-// }
+    const payload: IResponsePayload<IBook> = {
+      statusCode: data.statusCode,
+      success: data.success,
+      message: data.message,
+      data: data.data,
+    }
+    // send response
+    return res.status(payload.statusCode).send(payload)
+  } catch (error) {
+    return next(error)
+  }
+}
 
 const bookController = {
   createCowController,
   getAllBooksController,
   getSingleBookController,
   updateBookController,
-  // removeCowController,
+  removeBookController,
 }
 
 export default bookController

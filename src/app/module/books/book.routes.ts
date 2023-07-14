@@ -12,5 +12,6 @@ bookRoute.get('/', tokenVerify, bookController.getAllBooksController)
 // params
 bookRoute.get('/:bookId', tokenVerify, bookController.getSingleBookController)
 bookRoute.patch('/:bookId', tokenVerify, bookController.updateBookController)
+bookRoute.delete('/:bookId', tokenVerify, bookController.removeBookController)
 
 export default bookRoute
