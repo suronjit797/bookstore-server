@@ -9,8 +9,8 @@ const filterHelper = (
   partialSearching: IPartialSearchableFields
 ): { [key: string]: object } => {
   const schemaKeys = Object.keys(schemaName.schema.obj)
-  const filter = pic(req.query, ['query', 'minPrice', 'maxPrice', ...schemaKeys])
-  const { query, minPrice, maxPrice, ...filterData } = filter
+  const filter = pic(req.query, ['query', ...schemaKeys])
+  const { query, ...filterData } = filter
   const andCondition = []
 
   if (query && partialSearching.length > 0) {
@@ -27,19 +27,6 @@ const filterHelper = (
   if (Object.keys(filterData).length > 0) {
     andCondition.push({
       $and: Object.entries(filterData).map(([key, value]) => ({ [key]: value })),
-    })
-  }
-
-  //   min price
-  if (minPrice) {
-    andCondition.push({
-      price: { $gte: minPrice },
-    })
-  }
-  //   max price
-  if (maxPrice) {
-    andCondition.push({
-      price: { $lte: maxPrice },
     })
   }
 

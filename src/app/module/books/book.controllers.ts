@@ -8,6 +8,7 @@ import { IBook } from './book.interface'
 import UserModel from '../users/users.Model'
 import ApiError from '../../../shared/ApiError'
 import httpStatus from 'http-status'
+import BookModel from './book.Model'
 
 const createCowController: RequestHandler = async (req, res, next) => {
   try {
@@ -33,43 +34,43 @@ const createCowController: RequestHandler = async (req, res, next) => {
   }
 }
 
-// const getAllBooksController: RequestHandler = async (req, res, next) => {
-//   try {
-//     const pagination = paginationHelper(req.query)
-//     const filter = filterHelper(req, new cowModel(), ['location', 'breed', 'category'])
-//     const data = await bookService.getAllBooksService(filter, pagination)
+const getAllBooksController: RequestHandler = async (req, res, next) => {
+  try {
+    const pagination = paginationHelper(req.query)
+    const filter = filterHelper(req, new BookModel(), ['title', 'genre'])
+    const data = await bookService.getAllBooksService(filter, pagination)
 
-//     const payload: IResponsePayload<ICow[]> = {
-//       statusCode: data.statusCode,
-//       success: data.success,
-//       message: data.message,
-//       meta: data.meta,
-//       data: data.data,
-//     }
-//     // send response
-//     return res.status(payload.statusCode).send(payload)
-//   } catch (error) {
-//     return next(error)
-//   }
-// }
+    const payload: IResponsePayload<IBook[]> = {
+      statusCode: data.statusCode,
+      success: data.success,
+      message: data.message,
+      meta: data.meta,
+      data: data.data,
+    }
+    // send response
+    return res.status(payload.statusCode).send(payload)
+  } catch (error) {
+    return next(error)
+  }
+}
 
-// const getCowController: RequestHandler = async (req, res, next) => {
-//   try {
-//     const { cowId } = req.params
-//     const data = await bookService.getBookservice(cowId)
+const getSingleBookController: RequestHandler = async (req, res, next) => {
+  try {
+    const { bookId } = req.params
+    const data = await bookService.getBookService(bookId)
 
-//     const payload: IResponsePayload<ICow> = {
-//       statusCode: data.statusCode,
-//       success: data.success,
-//       message: data.message,
-//       data: data.data,
-//     }
-//     // send response
-//     return res.status(payload.statusCode).send(payload)
-//   } catch (error) {
-//     return next(error)
-//   }
-// }
+    const payload: IResponsePayload<IBook> = {
+      statusCode: data.statusCode,
+      success: data.success,
+      message: data.message,
+      data: data.data,
+    }
+    // send response
+    return res.status(payload.statusCode).send(payload)
+  } catch (error) {
+    return next(error)
+  }
+}
 
 // const updateCowController: RequestHandler = async (req, res, next) => {
 //   try {
@@ -109,8 +110,8 @@ const createCowController: RequestHandler = async (req, res, next) => {
 
 const bookController = {
   createCowController,
-  // getAllBooksController,
-  // getCowController,
+  getAllBooksController,
+  getSingleBookController
   // updateCowController,
   // removeCowController,
 }
