@@ -1,7 +1,7 @@
 import config from '../../../config'
 import ApiError from '../../../shared/ApiError'
 import { IResponsePayload } from '../../../shared/globalInterfaces'
-import UserModel from './userModel'
+import UserModel from './users.Model'
 import { IUser } from './users.interface'
 import httpStatus from 'http-status'
 import jwt from 'jsonwebtoken'

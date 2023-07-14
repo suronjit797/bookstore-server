@@ -4,7 +4,7 @@ import httpStatus from 'http-status'
 import jwt from 'jsonwebtoken'
 import config from '../../config'
 import { CustomJwtPayload } from '../../shared/globalInterfaces'
-import UserModel from '../module/users/userModel'
+import UserModel from '../module/users/users.Model'
 
 export const tokenVerify: RequestHandler = async (req, res, next) => {
   try {

@@ -40,8 +40,8 @@ export type IPartialSearchableFields = string[]
 
 export interface CustomJwtPayload {
   _id?: string
-  role?: string
-  phoneNumber?: string
+  name?: string
+  email?: string
   iat?: string
   exp?: string
 }
