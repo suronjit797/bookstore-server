@@ -13,6 +13,8 @@ const filterHelper = (
   const { query, ...filterData } = filter
   const andCondition = []
 
+  console.log(partialSearching)
+
   if (query && partialSearching.length > 0) {
     andCondition.push({
       $or: partialSearching.map((field) => ({

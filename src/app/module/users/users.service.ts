@@ -7,6 +7,7 @@ import httpStatus from 'http-status'
 import jwt from 'jsonwebtoken'
 
 const signUpService = async (payload: IUser): Promise<IResponsePayload<IUser>> => {
+  console.log(payload)
   const isExist = await UserModel.findOne({ email: payload.email })
   if (isExist) {
     throw new ApiError(httpStatus.NOT_ACCEPTABLE, 'User already exists')

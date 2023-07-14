@@ -18,6 +18,10 @@ const createBookService = async (payload: IBook): Promise<IResponsePayload<IBook
 
 const getAllBooksService = async (filter: IFilter, pagination: IPagination): Promise<IResponsePayload<IBook[]>> => {
   const { limit, page, skip, sortCondition } = pagination
+
+  console.log(filter)
+
+
   const data = await BookModel.find(filter)
     .limit(limit)
     .skip(skip)
