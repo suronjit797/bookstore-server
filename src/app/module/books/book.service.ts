@@ -31,7 +31,7 @@ const getAllBooksService = async (filter: IFilter, pagination: IPagination): Pro
     .limit(limit)
     .skip(skip)
     .sort(sortCondition)
-    .populate('author', { email: 1, name: 1 })
+    .populate('authorDetails', { email: 1, name: 1 })
   const total = await BookModel.countDocuments(filter)
 
   return {
@@ -48,7 +48,7 @@ const getAllBooksService = async (filter: IFilter, pagination: IPagination): Pro
 }
 
 const getBookService = async (id: string): Promise<IResponsePayload<IBook>> => {
-  const data = await BookModel.findById(id).populate({ path: 'author', select: { name: 1, email: 1 } })
+  const data = await BookModel.findById(id).populate({ path: 'authorDetails', select: { name: 1, email: 1 } })
 
   return {
     statusCode: httpStatus.OK,

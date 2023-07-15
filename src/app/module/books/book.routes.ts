@@ -7,11 +7,11 @@ import { tokenVerify } from '../../middleware/auth'
 const bookRoute = express.Router()
 
 bookRoute.post('/', globalValidator(createBookValidatorZod), tokenVerify, bookController.createBookController)
-bookRoute.get('/', tokenVerify, bookController.getAllBooksController)
-bookRoute.get('/year', tokenVerify, bookController.getAllYear)
+bookRoute.get('/', bookController.getAllBooksController)
+bookRoute.get('/year', bookController.getAllYear)
 
 // params
-bookRoute.get('/:bookId', tokenVerify, bookController.getSingleBookController)
+bookRoute.get('/:bookId', bookController.getSingleBookController)
 bookRoute.patch('/:bookId', tokenVerify, globalValidator(updateBookValidatorZod), bookController.updateBookController)
 bookRoute.delete('/:bookId', tokenVerify, bookController.removeBookController)
 
