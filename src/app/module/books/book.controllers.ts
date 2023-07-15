@@ -10,13 +10,13 @@ import ApiError from '../../../shared/ApiError'
 import httpStatus from 'http-status'
 import BookModel from './book.Model'
 
-const createCowController: RequestHandler = async (req, res, next) => {
+const createBookController: RequestHandler = async (req, res, next) => {
   try {
     const isUserExist = UserModel.isExist(req.user.email)
     if (!isUserExist) {
       throw new ApiError(httpStatus.BAD_REQUEST, 'User not found')
     }
-    const newBook = { ...req.body, author: req.user._id }
+    const newBook = { ...req.body, author: req.user.name, authorDetails: req.user._id }
 
     console.log(newBook)
 
@@ -37,7 +37,7 @@ const createCowController: RequestHandler = async (req, res, next) => {
 const getAllBooksController: RequestHandler = async (req, res, next) => {
   try {
     const pagination = paginationHelper(req.query)
-    const filter = filterHelper(req, new BookModel(), ['title', 'genre', 'author.name'])
+    const filter = filterHelper(req, new BookModel(), ['title', 'genre', 'author'])
     const data = await bookService.getAllBooksService(filter, pagination)
 
     const payload: IResponsePayload<IBook[]> = {
@@ -109,7 +109,7 @@ const removeBookController: RequestHandler = async (req, res, next) => {
 }
 
 const bookController = {
-  createCowController,
+  createBookController,
   getAllBooksController,
   getSingleBookController,
   updateBookController,

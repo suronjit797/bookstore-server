@@ -6,7 +6,7 @@ import { tokenVerify } from '../../middleware/auth'
 
 const bookRoute = express.Router()
 
-bookRoute.post('/', globalValidator(createBookValidatorZod), tokenVerify, bookController.createCowController)
+bookRoute.post('/', globalValidator(createBookValidatorZod), tokenVerify, bookController.createBookController)
 bookRoute.get('/', tokenVerify, bookController.getAllBooksController)
 
 // params

@@ -3,7 +3,8 @@ import { Model } from 'mongoose'
 
 export type IBook = {
   title: string
-  author: Types.ObjectId
+  authorDetails: Types.ObjectId
+  author: string
   genre: string
   publicationDate: Date
   reviews: IReview[]
