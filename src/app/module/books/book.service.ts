@@ -4,8 +4,12 @@ import { IFilter, IPagination, IResponsePayload } from '../../../shared/globalIn
 import httpStatus from 'http-status'
 import { IBook } from './book.interface'
 import BookModel from './book.Model'
+import YearModel from './year.model'
 
 const createBookService = async (payload: IBook): Promise<IResponsePayload<IBook>> => {
+  const year = new Date(payload.publicationDate).getFullYear().toString()
+
+  await YearModel.create({ year })
   const data = await BookModel.create(payload)
 
   return {
@@ -18,7 +22,7 @@ const createBookService = async (payload: IBook): Promise<IResponsePayload<IBook
 
 const getAllBooksService = async (filter: IFilter, pagination: IPagination): Promise<IResponsePayload<IBook[]>> => {
   const { limit, page, skip, sortCondition } = pagination
-  
+
   const data = await BookModel.find(filter)
     .limit(limit)
     .skip(skip)

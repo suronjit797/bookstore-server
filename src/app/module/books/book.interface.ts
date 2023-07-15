@@ -26,3 +26,10 @@ export type IReview = {
 }
 
 export type IBookModel = Model<IBook, Record<string, unknown>>
+
+
+export type IYear = {
+  year: string
+}
+
+export type IYearModel = Model<IYear, Record<string, unknown>>
