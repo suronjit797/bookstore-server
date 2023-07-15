@@ -5,7 +5,17 @@ export type IBook = {
   title: string
   authorDetails: Types.ObjectId
   author: string
-  genre: string
+  genre:
+    | 'mystery'
+    | 'romance'
+    | 'scienceFiction'
+    | 'fantasy'
+    | 'thriller'
+    | 'historicalFiction'
+    | 'biography'
+    | 'selfHelp'
+    | 'horror'
+    | 'poetry'
   publicationDate: Date
   reviews: IReview[]
 }
