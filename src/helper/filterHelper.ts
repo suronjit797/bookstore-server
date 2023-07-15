@@ -18,16 +18,6 @@ const filterHelper = (
   if (query && partialSearching.length > 0) {
     andCondition.push({
       $or: partialSearching.map((field) => {
-        if (dateSearching.includes(field)) {
-          const startDate = moment(new Date(query.toString())).startOf('year').format()
-          const endDate = moment(new Date(query.toString())).endOf('year').format()
-          return {
-            [field]: {
-              $gte: new Date(startDate),
-              $lte: new Date(endDate),
-            },
-          }
-        }
         return {
           [field]: {
             $regex: query,
@@ -41,6 +31,16 @@ const filterHelper = (
   if (Object.keys(filterData).length > 0) {
     andCondition.push({
       $and: Object.entries(filterData).map(([key, value]) => {
+        if (dateSearching.includes(key)) {
+          const startDate = moment(new Date(value!.toString())).startOf('year').format()
+          const endDate = moment(new Date(value!.toString())).endOf('year').format()
+          return {
+            [key]: {
+              $gte: new Date(startDate),
+              $lte: new Date(endDate),
+            },
+          }
+        }
         return { [key]: value }
       }),
     })

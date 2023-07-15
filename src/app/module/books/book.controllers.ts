@@ -18,8 +18,6 @@ const createBookController: RequestHandler = async (req, res, next) => {
     }
     const newBook = { ...req.body, author: req.user.name, authorDetails: req.user._id }
 
-    console.log(newBook)
-
     const data = await bookService.createBookService(newBook)
     const payload: IResponsePayload<IBook> = {
       statusCode: data.statusCode,
@@ -40,7 +38,7 @@ const getAllBooksController: RequestHandler = async (req, res, next) => {
     const filter = filterHelper(
       req,
       new BookModel(),
-      ['title', 'genre', 'author', 'publicationDate'],
+      ['title', 'genre', 'author'],
       ['publicationDate']
     )
     const data = await bookService.getAllBooksService(filter, pagination)
@@ -113,12 +111,32 @@ const removeBookController: RequestHandler = async (req, res, next) => {
   }
 }
 
+const getAllYear: RequestHandler = async (req, res, next) => {
+  try {
+    const pagination = paginationHelper(req.query)
+    const data = await bookService.getYearService(pagination)
+
+    const payload: IResponsePayload<string[]> = {
+      statusCode: data.statusCode,
+      success: data.success,
+      message: data.message,
+      meta: data.meta,
+      data: data.data,
+    }
+    // send response
+    return res.status(payload.statusCode).send(payload)
+  } catch (error) {
+    return next(error)
+  }
+}
+
 const bookController = {
   createBookController,
   getAllBooksController,
   getSingleBookController,
   updateBookController,
   removeBookController,
+  getAllYear,
 }
 
 export default bookController

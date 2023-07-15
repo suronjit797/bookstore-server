@@ -9,7 +9,11 @@ import YearModel from './year.model'
 const createBookService = async (payload: IBook): Promise<IResponsePayload<IBook>> => {
   const year = new Date(payload.publicationDate).getFullYear().toString()
 
-  await YearModel.create({ year })
+  const isYearExist = await YearModel.find({ year: year.toString() })
+  console.log(isYearExist, isYearExist.length, year)
+  if (isYearExist.length === 0) {
+    await YearModel.create({ year })
+  }
   const data = await BookModel.create(payload)
 
   return {
@@ -76,12 +80,33 @@ const removeBookService = async (id: string): Promise<IResponsePayload<IBook>> =
   }
 }
 
+const getYearService = async (pagination: IPagination) => {
+  const { limit, page, skip, sortCondition } = pagination
+  const years: string[] = []
+  const data = await YearModel.find().limit(limit).skip(skip).sort(sortCondition).select({ year: 1, _id: 0 })
+  const total = await YearModel.countDocuments()
+  data.map((y) => years.push(y.year))
+  const sorted = years.sort()
+  return {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Year retrieved successfully',
+    data: sorted,
+    meta: {
+      page,
+      limit,
+      total,
+    },
+  }
+}
+
 const bookService = {
   createBookService,
   getAllBooksService,
   getBookService,
   updateBookService,
   removeBookService,
+  getYearService,
 }
 
 export default bookService
