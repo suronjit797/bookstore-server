@@ -14,5 +14,6 @@ export const updateBookValidatorZod = z.object({
     title: z.string().optional(),
     genre: z.enum(bookEnum as [string, ...string[]]).optional(),
     publicationDate: z.string().datetime().optional(),
+    isFinishd: z.boolean().optional(),
   }),
 })
