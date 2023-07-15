@@ -18,6 +18,7 @@ export type IBook = {
     | 'poetry'
   publicationDate: Date
   reviews: IReview[]
+  isFinished?: boolean
 }
 
 export type IReview = {
@@ -26,7 +27,6 @@ export type IReview = {
 }
 
 export type IBookModel = Model<IBook, Record<string, unknown>>
-
 
 export type IYear = {
   year: string

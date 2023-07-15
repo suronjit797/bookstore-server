@@ -26,6 +26,9 @@ const bookSchema = new Schema<IBook>(
     author: {
       type: String,
     },
+    isFinished: {
+      type: Boolean,
+    },
     authorDetails: {
       type: Schema.Types.ObjectId,
       ref: 'User',
