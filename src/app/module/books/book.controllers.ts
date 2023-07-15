@@ -37,7 +37,12 @@ const createBookController: RequestHandler = async (req, res, next) => {
 const getAllBooksController: RequestHandler = async (req, res, next) => {
   try {
     const pagination = paginationHelper(req.query)
-    const filter = filterHelper(req, new BookModel(), ['title', 'genre', 'author'])
+    const filter = filterHelper(
+      req,
+      new BookModel(),
+      ['title', 'genre', 'author', 'publicationDate'],
+      ['publicationDate']
+    )
     const data = await bookService.getAllBooksService(filter, pagination)
 
     const payload: IResponsePayload<IBook[]> = {
