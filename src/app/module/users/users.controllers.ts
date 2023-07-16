@@ -44,10 +44,29 @@ const loginController: RequestHandler = async (req, res, next) => {
     return next(error)
   }
 }
+const getMyDataController: RequestHandler = async (req, res, next) => {
+  try {
+    const user = req.user
+
+    const payload: IResponsePayload<object> = {
+      statusCode: 200,
+      success: true,
+      message: 'User data get successful',
+      data: user,
+    }
+    // send response
+    return res.status(payload.statusCode).send(payload)
+  } catch (error) {
+    return next(error)
+  }
+}
+
+
 
 const usersController = {
   signUpController,
   loginController,
+  getMyDataController
 }
 
 export default usersController
